@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/segmentation.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/ddc04c24fc.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Breast Cancer Segmentations</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="title">
+        <div class="svgContainer">
+          <i class="svg fa-solid fa-icons"></i>
+        </div>
+        <h2>Breast <br />Cancer Segmentations</h2>
+      </div>
+      <div class="header-btn">
+        <button class="btn-rescan">Rescan</button>
+      </div>
+    </header>
+    <main class="maincontainer">
+      <div class="history">
+        <div class="historytitle">
+          <h5>History</h5>
+          <h6>30 images scanned so far</h6>
+        </div>
+        <div class="historycontainers">
+          <div class="historylisttile">
+            <div class="historycontainersimage"></div>
+            <div class="hsitorycontainerprogress">
+              <h5>Segmentation</h5>
+              <h6>52.05% confidence</h6>
+              <div class="progressbar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="predictedImage">
+        <p class="predictedImage-text">Predicted Image</p>
+      </div>
+      <div class="accuracyContainer">
+        <div class="aC-heading">
+          <h4>Confidence Score set by AI</h4>
+          <h2>88.34%</h2>
+          <button>Rescan</button>
+        </div>
+        <div class="predictionscores">
+          <div class="predictionscores_sub">
+            <h3>Begnin</h3>
+            <h2>55.67%</h2>
+          </div>
+          <div class="predictionscores_sub">
+            <h3>Begnin</h3>
+            <h2>55.67%</h2>
+          </div>
+          <div class="predictionscores_sub">
+            <h3>Begnin</h3>
+            <h2>55.67%</h2>
+          </div>
+        </div>
+        <div class="scan-type">
+          <h4>Scan type</h4>
+          <h2>Image Segmentation</h2>
+        </div>
+        <div class="medical-note">
+          <h2>Medical Note</h2>
+          <p>
+            Multiple small, scattered hyperintense foci are seen in the
+            periventricular and subcortical white matter on T2 and FLAIR images,
+            consistent with chronic microvascular ischemic changes.
+          </p>
+          <button>Download Report</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="image-container">
+        <div id="uploaded-image"></div>
+      </div>
+      <div class="image-container add-image-container-next">
+        <input
+          type="file"
+          id="file-input"
+          accept="image/*"
+          style="display: none"
+        />
+        <button id="upload-button">
+          <i class="fa-solid fa-plus plus-icon"></i>
+        </button>
+      </div>
+    </footer>
+    <script>
+      document
+        .getElementById("upload-button")
+        .addEventListener("click", function () {
+          document.getElementById("file-input").click();
+        });
+
+      document
+        .getElementById("file-input")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const img = document.createElement("img");
+              img.src = e.target.result;
+              img.classList.add("uploaded-img");
+              document.getElementById("uploaded-image").innerHTML = "";
+              document.getElementById("uploaded-image").appendChild(img);
+
+              img.addEventListener("click", function () {
+                const predictedImageContainer =
+                  document.querySelector(".predictedImage");
+                predictedImageContainer.innerHTML = "";
+                const clonedImg = img.cloneNode(true);
+                clonedImg.classList.add("predicted-img");
+                predictedImageContainer.appendChild(clonedImg);
+              });
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+    </script>
+  </body>
+</html>

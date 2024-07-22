@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | IntelliDiag Smart Diagnostics</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/results.css' %}">
+
+    
+
+</head>
+
+<body>
+    <div class="container">
+   
+        <button id="toggle" class="toggle-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+        <div id="sidebar" class="sidebar">
+            <div class="heading">
+                <img src="{% static 'images/logo.png' %}" alt="logo" width="50" height="50">
+                <h4>IntelliDiag AI Diagnostics</h4>
+                <button id="close" class="close-btn" onclick="closebutton()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+            <div class="middlesec">
+                <button onclick="showContent(1)"><i class="fas fa-home"></i>Home</button>
+                <button onclick="showContent(2)"><i class="fas fa-upload"></i>File Upload</button>
+                <button onclick="showContent(3)"><i class="fas fa-cogs"></i>Image Analysis</button>
+                <button onclick="showContent(4)"><i class="fas fa-history"></i>History</button>
+                <button onclick="showContent(5)"><i class="fas fa-cog"></i> Settings</button>
+            </div>
+            <div class="sidebarbottom">
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button class="button3" type="submit"><img src="{% static 'images/logout.png' %}" height="20px" width="20px">Logout</button>
+                </form>
+            </div>
+            
+
+        </div>
+     
+        <div class="content" id="mainContent">
+            <div id="content1" class="hidden">
+                <div class="homepage">
+                    <div class="searchcontainer">
+                        <div class="searchbar">
+                            <input placeholder="search here">
+                            <div class="search-icon"><img src="{% static 'images/search.png' %}"></div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <div class="headtitle">
+                            <div class="headtitle1">
+                                <div class="headtitle2">
+                                    <h1>Explore Our Different Actions</h1>
+                                </div>
+                                <button class="button2">Get Started</button>
+                            </div>
+                            <p>AI analysis at your fingertips</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Segmentation Analysis</h4>
+                        <div id="Segmentation" class="sect1"></div>
+                    </div>
+                    <div>
+                        <h4>Image translation</h4>
+                        <div id="dynamicCardsContainer" class="sect2">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+            <!-- Content 2: File Upload-->
+            <div id="content2" class="hidden">
+                <div class="container3">
+                    <div class="infocard2">
+                        
+                        <div class="main">
+                            
+                            <div id="dropArea" class="drop-main" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+                                <img src="{% static 'images/upload2.png' %}" height="100" width="100"/>
+                                    <div class="upload-message">
+                                        <h4> <a href="#">Choose a file </a></h4> <p>or drag it here</p>
+                                    </div>
+                            </div>
+                            
+                        </div>
+                        <!--<button class="rightbutton">Download Report</button>-->
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Image Analysis -->
+            <div id="content3" class="hidden">
+                <div class="container2">
+                    <div class="infocard">
+                        <div class="dets">
+                            <div class="subdets">
+                                <h2>Patient #: 67897666878</h2>
+                                <div class="subdets2">
+                                    <p>Gender: Male</p>
+                                    <p>Age: 28 years 03 months</p>
+                                </div>
+                            </div>
+
+                            <button class="button1">Rescan</button>
+
+
+                        </div>
+                        <div class="main">
+                            <div class="left"></div>
+                            <div class="rightmain">
+                                <div class="right">
+                                    <h3>Resuts Summary</h3>
+                                    <p>12 issues were detected</p>
+                                    <div class="cardcontainer">
+                                        <div id="dynamicCardContainer2">
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button class="rightbutton">Download Report</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- History -->
+
+            <div id="content4" class="hidden">
+                <!--<h1>Paginated Table</h1>-->
+                <div class="table-container">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Gender</th>
+                                <th>Age</th>
+                                <th>Test Performed</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="pagination">
+                    <button id="firstPageBtn">&lt;&lt;</button>
+                    <button id="prevPageBtn">&lt;</button>
+                    <span id="currentPageInfo">1-10 of 30</span>
+                    <button id="nextPageBtn">&gt;</button>
+                    <button id="lastPageBtn">&gt;&gt;</button>
+                </div>
+            </div>
+            <!-- Settings -->
+            <div id="content5" class="hidden">
+                <div class="settings-grid">
+                    <div class="settings-card" onclick="navigateTo('profile-settings.html')">
+                        <div class="settings-header"><i class="fas fa-user-cog fa-2x"></i> <h2>Profile Settings</h2></div>
+                        <p>Update your personal information and change your password.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('notification-settings.html')">
+                        <div class="settings-header"><i class="fas fa-bell fa-2x"></i> <h2>Notification Settings</h2></div>
+                        <p>Manage your email notifications and alerts.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('privacy-settings.html')">
+                        <div class="settings-header"><i class="fas fa-user-shield fa-2x"></i> <h2>Privacy Settings</h2></div>
+                        <p>Control your data sharing and visibility preferences.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('account-settings.html')">
+                        <div class="settings-header"><i class="fas fa-user-alt fa-2x"></i> <h2>Account Settings</h2></div>
+                        <p>Manage your subscription, deactivate, or delete account.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('analysis-settings.html')">
+                        <div class="settings-header"><i class="fas fa-chart-line fa-2x"></i><h2>Analysis Settings</h2></div>
+                        <p>Set default parameters and thresholds for image analysis.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('data-management.html')">
+                        <div class="settings-header"><i class="fas fa-database fa-2x"></i><h2>Data Management</h2></div>
+                        <p>Handle data storage, backup, and retention policies.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('security-settings.html')">
+                        <div class="settings-header"><i class="fas fa-lock fa-2x"></i>
+                        <h2>Security Settings</h2></div>
+                        <p>Configure two-factor authentication and manage devices.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('integration-settings.html')">
+                        <div class="settings-header"><i class="fas fa-plug fa-2x"></i>
+                        <h2>Integration Settings</h2></div>
+                        <p>Connect to other systems and manage API keys.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('ai-model-settings.html')">
+                        <div class="settings-header"><i class="fas fa-robot fa-2x"></i>
+                        <h2>AI Model Configuration</h2></div>
+                        <p>Train, validate, and monitor AI models for analysis.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('report-settings.html')">
+                        <div class="settings-header"><i class="fas fa-file-alt fa-2x"></i>
+                        <h2>Report Settings</h2></div>
+                        <p>Customize and schedule automatic report generation.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('activity-logs.html')">
+                        <div class="settings-header"><i class="fas fa-list-alt fa-2x"></i>
+                        <h2>User Activity Logs</h2></div>
+                        <p>Track user activities for security and auditing purposes.</p>
+                    </div>
+                    <div class="settings-card" onclick="navigateTo('feedback-support-settings.html')">
+                        <div class="settings-header"> <i class="fas fa-life-ring fa-2x"></i>
+                        <h2>Feedback & Support</h2></div>
+                        <p>Provide feedback and access support options.</p>
+                    </div>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="{% static 'js/results.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/history.js' %}"></script>
+
+    <script>
+        function closebutton() {
+            var sidebar = document.getElementById('sidebar');
+            var toggle = document.getElementById('toggle')
+
+            toggle.style.display = 'flex';
+            sidebar.style.display = 'none';
+            console.log('help')
+            
+        }
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+
+</body>
+
+</html>

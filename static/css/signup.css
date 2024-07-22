@@ -1,0 +1,157 @@
+.left-side {
+
+    background: url('../images/left.png');
+    width: 50vw;
+    height: 100vh
+}
+
+.right-side {
+    font-family: Inter;
+    background-color: #F6FCFF;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2vw;
+    height: 100vh
+}
+
+.inputcontainer {
+    width: 33vw;
+    /* background-color: green; */
+
+
+}
+
+.inputelems {
+    /* background-color: green; */
+    width: 33vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6vw;
+
+}
+
+.links {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+    color: rgba(6, 148, 252, 0.80);
+    width: 100%;
+    font-size: 0.8vw;
+    font-family: Inter;
+    font-weight: 500;
+    letter-spacing: 0.48px;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    /* background-color: rgb(236, 92, 92); */
+    display: flex;
+    flex-direction: row;
+}
+
+.descr {
+
+    color: #626566;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+
+
+}
+
+.welcome {
+    color: black;
+    font-size: 1.7vw;
+    font-family: Inter;
+    font-weight: 700;
+    letter-spacing: 1.02px;
+    word-wrap: break-word
+}
+
+.input2 {
+    display: flex;
+    width: 30vw;
+    height: auto;
+    font-size: 1.8vw;
+    gap: 2vw;
+    background: #EDF8FF;
+    border-radius: 1vw;
+
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 0.7vw;
+    padding-bottom: 0.7vw;
+
+    color: #ff8800;
+
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.input {
+    position: relative;
+    color: #AAAFB3;
+    width: 100%;
+    height: 3vw;
+    border: none;
+    background-color: transparent;
+
+    font-size: 1.1vw;
+    outline: none;
+    display: flex;
+    justify-content: center;
+}
+
+.heading {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.options {
+    /* background-color: red; */
+}
+
+.login {
+    background-color: #DB4437;
+    padding: 10px 20px;
+    width: 100%;
+    height: 3vw;
+    /* margin: 10px; */
+    font-size: 16px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+::placeholder {
+    color: #AAAFB3;
+}

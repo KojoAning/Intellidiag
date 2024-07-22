@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{% static 'css/login.css'%}">
+  
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliDiag | Signup</title>
+ 
+</head>
+<body >
+    <div class="section-row">
+        <div class="container">
+            <div class="left-side">
+                <!-- Display Side Image -->
+                
+            </div>
+            <div class="right-side">
+                <div class="heading">
+                    <a href="/">
+                        <img  src="{% static 'images/logo.png'%}" alt="logo" width="60" height="60">
+                    </a>
+                    <h2>Let's get you started!</h2>
+                    <p>Fill in your details to get started..</p>
+                </div>
+                <div class="options">
+                    <button class="button google options-button"><img  src="{% static 'images/google.png'%}" alt="Google Logo" width="20" height="20" >Google</button>
+                    <button class="button linkedin options-button"><img  src="{% static 'images/linkedin.png'%}" alt="Linkedin Logo" width="20" height="20">LinkedIn</button>
+                </div>
+
+                <div class="surrounded-text">
+                    <div class="horizontal-line"></div>OR<div class="horizontal-line"></div>
+                </div>
+
+                <div class="input-container">
+                    <div id="success-message">
+                
+                    </div>
+                    <div class="input-elem">
+                        <img src="{% static 'images/email.png' %}" alt="Email Icon">
+                        {{registration_form.email}}
+                        <!-- Add span element for field-specific error message -->
+                        <span id="email-error" class="error-message"></span>
+                    </div>
+                    <div class="input-elem">
+                        <img src="{% static 'images/person.png' %}" alt="Username Icon">
+                        {{registration_form.username}}
+                        <!-- Add span element for field-specific error message -->
+                        <span id="username-error" class="error-message"></span>
+                    </div>
+                    <div class="input-elem">
+                        <img src="{% static 'images/lock.png' %}" alt="Password Icon">
+                        {{registration_form.password1}}
+                        <!-- Add span element for field-specific error message -->
+                        <span id="password1-error" class="error-message"></span>
+                    </div>
+                    <div class="input-elem">
+                        <img src="{% static 'images/lock.png' %}" alt="Password Icon">
+                        {{registration_form.password2}}
+                        <!-- Add span element for field-specific error message -->
+                        <span id="password2-error" class="error-message"></span>
+                    </div>
+                </div>
+                
+                <div class="links">
+                    <a href="#">By Signing Up I Agree to the Terms of Service and Privacy Policy</a>
+                </div>
+                
+                <button id="register-button" class="login">Sign Up</button>
+            </div>
+        </div>
+    </div>
+    <div class="section-row">
+        <footer>
+            © 2024 IntelliDiag Smart Diagnostics  |  Proudly baked by Ananse.AI
+        </footer>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

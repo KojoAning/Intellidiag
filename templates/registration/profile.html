@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntellIDiag - AI Powered Diagnosis</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body class="body">
+    <header class="headermain">
+        <img  src="{% static 'images/logo.png'%}" alt="logo" width="40" height="40">
+        
+    </header>
+    <div class="container">
+        <div class="container-content">
+            <div class="hcontainer">
+                <div class="header">
+                    <span>Welcome to </span><span class="highlight">IntelliDiag.</span><span> An AI Powered Diagnosis Platform</span>
+                    <p>Now Let's get to know you better.</p>
+                </div>
+                <div class="content">
+                    <div class="holder">
+                        <div class="input-container">
+                            <div class="label">Age</div>
+                            <div class="input"><input class="inputage"  placeholder=''  type='number'></input></div>
+                        </div>
+                        <div class="gender-container">
+                            <div class="label">Gender</div>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="gender" value="male" class="indicator">
+                                    <div class="label">Male</div>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="gender" value="female" class="indicator">
+                                    <div class="label">Female</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="terms">
+                <div class="label">By clicking next you agree to these terms:</div>
+                <div class="description">Lorem ipsum dolor sit amet consectetur. Amet venenatis nulla ut sollicitudin cras tempus suspendisse. Lacinia id massa aenean lorem cras nisl semper. Ac nec adipiscing quam donec blandit egestas et. Amet commodo sed vel.</div>
+            </div>
+            <div class="button-container">
+                <a href="{% url 'main_dashboard'%}">
+                <div class="button">Next</div>
+            </a>
+            </div>
+    </div>
+    </div>
+    
+   
+    
+  
+</body>
+</html>

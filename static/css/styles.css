@@ -1,0 +1,95 @@
+ /* Add your CSS styles here */
+ body {
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     background:
+         linear-gradient(90deg, rgba(0, 141, 255, 0.46) -0.05%, rgba(94, 121, 142, 0.57) 28.01%, rgba(51, 82, 106, 0.32) 55.73%),
+         url(../images/background.png);
+     background-size: cover;
+ }
+
+ header {
+     background-color: #333;
+     color: #fff;
+     padding: 20px;
+     text-align: center;
+ }
+
+ button {
+     padding: 10px 20px;
+     margin: 10px;
+     font-size: 16px;
+     border: none;
+     background-color: #007bff;
+     color: #fff;
+     cursor: pointer;
+     border-radius: 5px;
+ }
+
+ .contents {
+     height: 80vh;
+     width: 50vw;
+     /* background-color: green; */
+     padding-left: 3vw;
+     display: flex;
+     flex-direction: column;
+     text-align: left;
+     gap: 14px;
+     /* padding: 0; */
+
+     justify-content: center;
+ }
+
+ .title {
+     width: 40vw;
+     /* background-color: rgb(250, 49, 49); */
+     color: #FFF;
+     font-size: 55px;
+     font-style: normal;
+     font-weight: 700;
+     line-height: normal;
+ }
+
+ .title2 {
+     color: white;
+     font-size: 20px;
+     font-style: normal;
+     width: 40vw;
+     font-weight: normal;
+ }
+
+ .button2 {
+
+     padding: 10px 15px;
+     font-size: 16px;
+     margin: 0;
+     background-color: #DB4437;
+     color: #fff;
+     cursor: pointer;
+     border-radius: 5px;
+     /* width: 8vw; */
+     width: 130px;
+     height: 50px;
+     flex-shrink: 0;
+
+ }
+
+ .buttoncontainer {
+     /* background-color: black; */
+     padding: 0;
+     text-align: left;
+
+ }
+
+ .button2var {
+     padding: 10px 20px;
+     margin: 10px;
+     font-size: 16px;
+     border: none;
+     background-color: #DB4437;
+     color: #fff;
+     cursor: pointer;
+     border-radius: 5px;
+
+ }

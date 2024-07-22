@@ -1,0 +1,143 @@
+var dataArray = [{
+        imageSrc: '/images/brain.png',
+        title: "Card 1Title",
+        description: "Description for Card 1"
+    },
+    {
+        imageSrc: '/images/brain.png',
+        title: "Card 2 Title",
+        description: "Description for Card 2"
+    },
+    {
+        imageSrc: '/images/brain.png',
+        title: "Card 3 Title",
+        description: "Description for Card 3"
+    }
+];
+
+// Get the container where the dynamic cards will be added
+var container = document.getElementById('dynamicCardsContainer');
+
+
+// Loop through the array and create cards dynamically
+dataArray.forEach(function (item) {
+    // Create card elements
+    var card = document.createElement('div');
+    card.classList.add('card');
+
+    var image = document.createElement('img');
+    image.src = item.imageSrc;
+    image.alt = 'Card Image';
+
+    // Create and configure title element
+    var title = document.createElement('div');
+    title.textContent = item.title;
+
+    // Create and configure description element
+    var description = document.createElement('div');
+    description.textContent = item.description;
+
+    // Create and configure image element
+
+
+    // Append title, image, and description to the card
+    card.appendChild(image);
+    card.appendChild(title);
+    card.appendChild(description);
+
+    // Append card to the container
+    container.appendChild(card);
+    // Segmentation.appendChild(card)
+});
+
+var Segmentation = document.getElementById('Segmentation');
+dataArray.forEach(function (item) {
+    // Create card elements
+    var card = document.createElement('div');
+    card.classList.add('card');
+
+    var image = document.createElement('img');
+    image.src = item.imageSrc;
+    image.alt = 'Card Image';
+
+    // Create and configure title element
+    var title = document.createElement('div');
+    title.textContent = item.title;
+
+    // Create and configure description element
+    var description = document.createElement('div');
+    description.textContent = item.description;
+
+    // Create and configure image element
+
+
+    // Append title, image, and description to the card
+    card.appendChild(image);
+    card.appendChild(title);
+    card.appendChild(description);
+
+    // Append card to the container
+
+    Segmentation.appendChild(card)
+});
+
+
+function showContent(contentId) {
+    // Hide all content divs
+    var contentDivs = document.querySelectorAll('.content > div');
+    contentDivs.forEach(function (div) {
+        div.classList.add('hidden');
+    });
+
+    var selectedContent = document.getElementById('content' + contentId);
+    selectedContent.classList.remove('hidden');
+
+
+    var buttons = document.querySelectorAll('.middlesec button');
+    buttons.forEach(function (button) {
+        button.classList.remove('active');
+    });
+
+
+    var clickedButton = document.querySelector('.middlesec button:nth-child(' + contentId + ')');
+    clickedButton.classList.add('active');
+
+  
+    sessionStorage.setItem('currentContentIndex', contentId);
+}
+
+
+window.onload = function () {
+    var currentContentIndex = sessionStorage.getItem('currentContentIndex');
+    if (currentContentIndex) {
+        showContent(currentContentIndex);
+    } else {
+        showContent(1);
+    }
+};
+
+
+function toggleSidebar() {
+    console.log("i am clicked")
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('sidebar-visible');
+    sidebar.classList.toggle('fixed');
+
+}
+
+
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var toggle = document.getElementById('toggle')
+    var close = document.getElementById('close')
+    
+    sidebar.style.display = 'flex';
+    sidebar.style.position ='fixed'
+    toggle.style.display = 'none';
+    close.style.display ='flex';
+    console.log(close.style.display)
+
+    
+    sidebar.classList.toggle('sidebar-visible');            
+
+}
