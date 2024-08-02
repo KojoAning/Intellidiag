@@ -1,9 +1,16 @@
 var dataArray = [
   {
     imageSrc: "/static/images/chest.png",
+    title: "GI Tract Image Segmentation",
+    description: "Image Segmentations for GI Tract analysis",
+    url: "/segmentation/",
+  },
+
+  {
+    imageSrc: "/static/images/chest.png",
     title: "Lung Image Segmentation",
     description: "Medical images analysis for chest scans",
-    url: "/segmentation/",
+    url: "/breastcancer/",
   },
   {
     imageSrc: "/static/images/breast.png",
@@ -82,6 +89,10 @@ dataArray.forEach(function (item) {
   card.appendChild(image);
   card.appendChild(title);
   card.appendChild(description);
+  card.addEventListener("click", function () {
+    console.log("Card clicked:", item.title, "URL:", item.url); // Debug information
+    window.location.href = item.url;
+  });
 
   // Append card to the container
 

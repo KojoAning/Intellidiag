@@ -10,7 +10,7 @@ var dataArray = [
     imageSrc: "/static/images/chest.png",
     title: "Lung Image Segmentation",
     description: "Medical images analysis for chest scans",
-    url: "/breastcancer/",
+    url: "/segmentation/",
   },
   {
     imageSrc: "/static/images/breast.png",

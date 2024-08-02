@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from home.views import show_home
 from segmentation.views import newpage
+from breastcancer.views import breastcancer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +29,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('dashboards/', include('dashboards.urls')),
     path('page1/', show_home, name="analysis"),
-    path('segmentation/', newpage, name="segmentation")
+    path('segmentation/', newpage, name="segmentation"),
+    path('breastcancer/', breastcancer, name="breastcancer")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
