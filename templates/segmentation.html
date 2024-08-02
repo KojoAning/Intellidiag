@@ -71,37 +71,14 @@
           <h5>History</h5>
           <h6 id="scanned-count">0 images scanned so far</h6>
         </div>
-        <div class="historysub">
-          <div class="hsitorycontainer" id="history-list">
-            <!-- History items will be added here dynamically -->
-          </div>
-        </div>
-        <div class="patientdets">
-          <div class="nameandage">
-            <div class="patientname">
-              <h3>PATIENT NAME</h3>
-              <h5>MICHAEL ADJEI ASANTE</h5>
-            </div>
-            <div class="patientage">
-              <h3>AGE</h3>
-              <h5>23</h5>
-            </div>
-          </div>
-          <div class="patientid">ID: /984439992</div>
-          <div class="patientbuttons">
-            <button class="btn-patient1">Accept</button>
-            <button class="btn-patient2">Decline</button>
-          </div>
+        <div class="hsitorycontainer" id="history-list">
+          <!-- History items will be added here dynamically -->
         </div>
       </div>
       <div class="predictedImage">
         <p class="predictedImage-text">Predicted Image</p>
       </div>
       <div class="accuracyContainer">
-        <div class="patienttypeandname">
-          <h4>Breast CT</h4>
-          <h6>MICHAEL ADJEI FREMPONG /00212334</h6>
-        </div>
         <div class="aC-heading">
           <h4>Confidence Score set by AI</h4>
           <h2 id="acheading">0%</h2>
@@ -344,7 +321,7 @@
           historyLabel.appendChild(historyTitle);
 
           const historyConfidence = document.createElement("h5");
-          historyConfidence.textContent = `${item.confidence} confident`;
+          historyConfidence.textContent = `${item.confidence}% confident`;
           historyLabel.appendChild(historyConfidence);
 
           historyContainer.appendChild(historyLabel);

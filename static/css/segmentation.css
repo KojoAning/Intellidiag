@@ -9,7 +9,6 @@ body {
   margin-top: 40px;
   margin-left: 30px;
   margin-right: 0px;
-  background-color: black;
 }
 
 .header {
@@ -17,7 +16,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   margin-right: 100px;
-  background-color: black;
 }
 
 .maincontainer {
@@ -27,23 +25,15 @@ body {
   margin-right: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: black;
 }
 
 .title {
   display: flex;
   flex-direction: row;
-  background-color: black;
-}
-
-.title h2 {
-  display: flex;
-  flex-direction: row;
-  color: white;
 }
 
 .svgContainer {
-  background-color: #db4437;
+  background-color: #d9d7fe;
   margin-right: 10px;
   margin-top: 3px;
   width: 46px;
@@ -59,27 +49,7 @@ body {
 
 .btn-rescan {
   color: white;
-  background-color: #db4437;
-  padding: 9px 27px 9px 27px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.btn-patient1 {
-  color: white;
-  background-color: #28d14d;
-  padding: 9px 27px 9px 27px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.btn-patient2 {
-  color: white;
-  background-color: #db4437;
+  background-color: #dc4437;
   padding: 9px 27px 9px 27px;
   border: none;
   border-radius: 4px;
@@ -95,11 +65,7 @@ body {
 .btn-rescan:active {
   transform: scale(0.96);
 }
-.patientdets {
-  background-color: #101011;
-  border-radius: 21px;
-  padding: 20px;
-}
+
 main {
   margin-top: 25px;
   display: grid;
@@ -115,7 +81,7 @@ main {
   width: 600px;
   grid-column: 1 / 3;
   grid-row: 1 / 3;
-  background-color: #01101a;
+  background-color: black;
   border-radius: 9px;
   display: inline-block;
   justify-content: center;
@@ -144,7 +110,7 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 5px 10px;
   border-radius: 5px;
 }
@@ -152,17 +118,10 @@ main {
   margin-right: 20px;
   font-family: poppins;
   font-weight: 400px;
-  color: white;
 }
 .predictionscores_sub h3 {
   font-family: poppins;
   font-weight: 400;
-}
-
-.predictionscores_sub h5 {
-  font-family: poppins;
-  font-weight: 200;
-  font-size: 21px;
 }
 
 .overlay-div {
@@ -209,73 +168,17 @@ main {
 
 .predictionscores_sub h5 {
   font-family: poppins;
-  font-weight: 300;
-  font-size: 21px;
+  font-weight: 400;
+  font-size: 25px;
 }
 .predictionscores {
   padding-top: 12px;
   display: flex;
   flex-direction: row;
 }
-.patientname h3 {
-  font-size: 12px;
-  color: #878788;
-  font-weight: 200;
-}
 
-.patientname h5 {
-  font-size: 16px;
-  color: #878788;
-  font-weight: 300;
-}
-.patientdets {
-  width: 334px;
-}
-
-.patientage h3 {
-  font-size: 12px;
-  color: #878788;
-  font-weight: 200;
-}
-.nameandage {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.patientbuttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.patientid {
-  color: #878788;
-  margin-bottom: 10px;
-}
-.patientage h5 {
-  font-size: 16px;
-  color: #878788;
-  font-weight: 300;
-}
-.patienttypeandname {
-  color: white;
-
-  margin-bottom: 10px;
-}
-
-.patienttypeandname h4 {
-  font-size: 25px;
-  font-family: poppins;
-  color: white;
-  font-weight: 200;
-}
-.patienttypeandname h6 {
-  font-size: 14;
-  font-weight: 200;
-  color: #808080;
-  font-family: poppins;
-}
 .accuracyContainer {
+  margin-top: 40px;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -297,9 +200,7 @@ main {
 .aC-heading h2 {
   padding-top: 5px;
   font-family: Inter;
-  font-weight: 200;
-  color: white;
-  font-size: 36px;
+  font-weight: 600;
 }
 
 .aC-heading button {
@@ -331,7 +232,6 @@ main {
 .scan-type h2 {
   font-family: Inter;
   font-weight: 600;
-  color: white;
 }
 
 .scan-type h4 {
@@ -343,44 +243,25 @@ main {
 }
 .history {
   width: 334px;
-
   margin-right: 20px;
   font-family: Poppins;
-  background-color: black;
 }
 .predictionscores_sub h3 {
   font-size: 14px;
-  color: #898989;
 }
 .historytitle {
   margin-bottom: 10px;
-  color: white;
 }
 .historytitle h5 {
   font-size: 28px;
   font-family: Poppins;
-  color: white;
   font-weight: 400;
-}
-
-#scanned-count h6 {
-  font-family: Poppins;
-  color: #7a7a7a;
-  font-size: 17px;
 }
 .historycontainersimage {
   border-radius: 10px;
   background-color: #00487f;
   width: 61px;
   height: 70px;
-}
-
-.historysub {
-  height: 200px;
-  overflow-y: auto;
-  scrollbar-color: rgb(104, 104, 104) rgb(0, 0, 0);
-  scrollbar-width: 20px;
-  margin-bottom: 45px;
 }
 @media (max-width: 900px) {
   .historylabel {
@@ -399,7 +280,7 @@ main {
   font-size: 14px;
   font-weight: 300;
   font-family: poppins;
-  color: #696464;
+  color: white;
 }
 
 .historycontainer {
@@ -408,12 +289,11 @@ main {
   align-items: center;
 }
 .historylabel {
-  width: 263px;
-  height: 80px;
+  width: 200px;
+  height: 65px;
   padding: 10px;
-  margin-right: 10px;
   border-radius: 10px;
-  background-color: #101011;
+  background-color: black;
 }
 
 .historyimage {
@@ -429,9 +309,9 @@ main {
 }
 .historytitle h6 {
   font-size: 17px;
-  color: #7a7a7a;
+  color: rgba(0, 0, 0, 0.48);
   font-family: poppins;
-  font-weight: 200;
+  font-weight: 400;
 }
 .progressbar {
   height: 3px;
@@ -463,7 +343,6 @@ main {
 
 .predictionscores_sub h2 {
   font-size: 31px;
-  color: white;
 }
 .predictionscores_sub h6 {
   font-size: 17px;
@@ -471,7 +350,6 @@ main {
 
 .scan-type h2 {
   font-size: 18px;
-  font-weight: 200;
 }
 
 .medical-note {
@@ -482,14 +360,13 @@ main {
   font-size: 18px;
   font-family: Inter;
   font-weight: 600;
-  color: #b8b8b8;
 }
 
 .medical-note p {
   color: #9e9e9e;
-  font-size: 14px;
+  font-size: 16px;
   font-family: Inter;
-  font-weight: 300;
+  font-weight: 500;
   width: 380px;
   padding-top: 3px;
 }
@@ -531,7 +408,7 @@ footer {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: black; /* Optional background color */
+  background-color: #f9f9f9; /* Optional background color */
 }
 
 #image-container {
@@ -554,7 +431,7 @@ footer {
 }
 
 .add-image-container-next {
-  background-color: #000c14;
+  background-color: #ecf6ff;
 }
 
 .add-image-container-next button {
@@ -564,7 +441,7 @@ footer {
 
 .plus-icon {
   font-size: 36px;
-  color: #0996fc;
+  color: #00487f;
   padding-top: 17px;
   padding-left: 31px;
   padding-bottom: 17px;
