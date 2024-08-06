@@ -12,18 +12,18 @@ var dataArray = [
     description: "Medical images analysis for chest scans",
     url: "/breastcancer/",
   },
-  {
-    imageSrc: "/static/images/breast.png",
-    title: "Breast Image Segmentation",
-    description: "Medical images analysis for breast scans",
-    url: "/home222/",
-  },
-  {
-    imageSrc: "/static/images/brain.png",
-    title: "Brain Image Segmentation",
-    description: "Medical images analysis for brain scans",
-    url: "/home222/",
-  },
+  // {
+  //   imageSrc: "/static/images/breast.png",
+  //   title: "Breast Image Segmentation",
+  //   description: "Medical images analysis for breast scans",
+  //   url: "/home222/",
+  // },
+  // {
+  //   imageSrc: "/static/images/brain.png",
+  //   title: "Brain Image Segmentation",
+  //   description: "Medical images analysis for brain scans",
+  //   url: "/home222/",
+  // },
 ];
 
 // Get the container where the dynamic cards will be added

@@ -2,44 +2,57 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Revolutionizing Diagnosis</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  </head>
+  <body>
     <header>
-        <nav>
-            <a href="#" class="logo">
-                <img src="{% static 'images/logo.png' %}" alt="Logo">
-            </a>
-            <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">FAQ</a></li>
-            </ul>
-            <div class="nav-button">
+      <nav>
+        <!-- <a href="#" class="logo">
+          <img src="{% static 'images/logo.png' %}" alt="Logo" />
+        </a> -->
+
+        <h6>Intellidiag</h6>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+        <!-- <div></div> -->
+        <h5>Intellidiag</h5>
+        <!-- <div class="nav-button">
                 <ul>
                   <li><a href="{%url 'login_view' %}" class="login">Login</a></li>
                   <li><a href="{%url 'signup_view' %}" class="signup">Sign Up</a></li>
                 </ul>
-            <div>
-            
-        </nav>
+            <div> -->
+      </nav>
     </header>
     <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Revolutionizing Diagnosis with the Power of Artificial Intelligence</h1>
-                <p>Using our platform we help healthcare providers to interpret medical images for prognostic and diagnostic purposes.</p>
-                <a href="{%url 'login_view' %}" class="btn">Get Started</a>
-            </div>
-        </section>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>
+            Revolutionizing radiology with the power of Artificial Intelligence
+          </h1>
+          <p>
+            Harnessing Cutting-Edge AI Innovations to Revolutionize Diagnostic
+            Precision, Streamline Workflow Efficiency, and Elevate Patient Care
+            in Radiology.
+          </p>
+          <a href="{%url 'login_view' %}" class="btn">Get Started</a>
+        </div>
+      </section>
+      <section>
+        <img src="{% static 'images/left.png'%}" />
+      </section>
     </main>
 
     <footer>
-      © 2024 IntelliDiag Smart Diagnostics  |  Proudly baked by Ananse.AI
+      © 2024 IntelliDiag Smart Diagnostics | Proudly baked by Ananse.AI
     </footer>
-</body>
+  </body>
 </html>

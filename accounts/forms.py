@@ -8,7 +8,7 @@ class LoginForm(AuthenticationForm):
     username = forms.EmailField(
         max_length=254,
         label='Email',
-        widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control'})
+        widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'class': 'form-control'})
     )
     password = forms.CharField(
         label='Password',

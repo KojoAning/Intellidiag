@@ -2,71 +2,103 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IntelliDiag | Login</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="section-row">
-        <div class="container">
-            <div class="left-side">
-                <!-- Display Side Image -->
-                
-            </div>
-            <div class="right-side">
-                <div class="heading">
-                    <a href="/">
-                        <img  src="{% static 'images/logo.png'%}" alt="logo" width="60" height="60">
-                    </a>
-                    <h2>Welcome back</h2>
-                    <p>Login to continue</p>
-                </div>
-                <div class="options">
-                    <button class="button google options-button"><img  src="{% static 'images/google.png'%}" alt="Google Logo" width="20" height="20" >Google</button>
-                        <button class="button linkedin options-button"><img  src="{% static 'images/linkedin.png'%}" alt="Linkedin Logo" width="20" height="20">LinkedIn</button>
-                </div>
-
-                <div class="surrounded-text">
-                    <div class="horizontal-line"></div>OR<div class="horizontal-line"></div>
-                </div>
-
-                <div class="input-container">
-                    <form action="{% url 'user_login' %}" method="post">
-                        {% csrf_token %}
-                        
-                        <div id="success-message"></div>
-                        
-                        <div class="input-elem">
-                            <img src="{% static 'images/person.png' %}" alt="Username Icon">
-                            {{login_form.username}}
-                            <span id="username-error" class="error-message"></span>
-                        </div>
-                        <div class="input-elem">
-                            <img src="{% static 'images/lock.png' %}" alt="Password Icon">
-                            {{login_form.password}}
-                            <span id="password-error" class="error-message"></span>
-                        </div>
-                    </form>
-                    <div class="error-message" id="errorMessage"></div>
-                </div>
-                <div class="links">
-                    <a href="{% url 'signup_view' %}">Create Account</a>
-                    <a href="#">Forgot Password?</a>
-                </div>
-                <button id="login-button" class="login">Login</button>
-                
-            </div>
+      <div class="container">
+        <div class="left-side">
+          <img
+            src="{% static 'images/left.png'%}"
+            height="500px"
+            width="500px"
+          />
+          <div class="description">
+            Harnessing Cutting-Edge AI Innovations to Revolutionize Diagnostic
+            Precision, Streamline Workflow Efficiency, and Elevate Patient Care
+            in Radiology
+          </div>
+          <!-- Display Side Image -->
         </div>
-</div>
-<div class="section-row">
-    <footer>
-        © 2024 IntelliDiag Smart Diagnostics  |  Proudly baked by Ananse.AI
-    </footer>
-</div>
+        <div class="right-side">
+          <div class="heading">
+            <a href="/">
+              <!-- <img
+                src="{% static 'images/logo.png'%}"
+                alt="logo"
+                width="60"
+                height="60"
+              /> -->
+            </a>
+            <h2>Intellidiag</h2>
+            <p>Login to Continue to Your Dashboard</p>
+          </div>
+          <div class="options">
+            <button class="button google options-button">
+              <img
+                src="{% static 'images/google.png'%}"
+                alt="Google Logo"
+                width="20"
+                height="20"
+              />Google
+            </button>
+            <button class="button linkedin options-button">
+              <img
+                src="{% static 'images/linkedin.png'%}"
+                alt="Linkedin Logo"
+                width="20"
+                height="20"
+              />LinkedIn
+            </button>
+          </div>
+
+          <div class="surrounded-text">
+            <div class="horizontal-line"></div>
+            OR
+            <div class="horizontal-line"></div>
+          </div>
+
+          <div class="input-container">
+            <form action="{% url 'user_login' %}" method="post">
+              {% csrf_token %}
+
+              <div id="success-message"></div>
+
+              <div class="input-elem">
+                <img
+                  src="{% static 'images/person.png' %}"
+                  alt="Username Icon"
+                />
+                {{login_form.username}}
+                <span id="username-error" class="error-message"></span>
+              </div>
+              <div class="input-elem">
+                <img src="{% static 'images/lock.png' %}" alt="Password Icon" />
+                {{login_form.password}}
+                <span id="password-error" class="error-message"></span>
+              </div>
+            </form>
+            <div class="error-message" id="errorMessage"></div>
+          </div>
+          <div class="links">
+            <a href="{% url 'signup_view' %}">Create Account</a>
+            <a href="#">Forgot Password?</a>
+          </div>
+          <button id="login-button" class="login">Login</button>
+        </div>
+      </div>
+    </div>
+    <div class="section-row">
+      <footer>
+        © 2024 IntelliDiag Smart Diagnostics | Proudly baked by Ananse.AI
+      </footer>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{% static 'js/login.js' %}"></script>
-</body>
+  </body>
 </html>
