@@ -1,7 +1,7 @@
 var dataArray = [
   {
     imageSrc: "/static/images/chest.png",
-    title: "GI Tract Image Segmentation",
+    title: "Brain Tumor Analysis",
     description: "Image Segmentations for GI Tract analysis",
     url: "/segmentation/",
   },
@@ -10,20 +10,24 @@ var dataArray = [
     imageSrc: "/static/images/chest.png",
     title: "Lung Image Segmentation",
     description: "Medical images analysis for chest scans",
-    url: "/breastcancer/",
+    url: "/mritoct/",
   },
-  // {
-  //   imageSrc: "/static/images/breast.png",
-  //   title: "Breast Image Segmentation",
-  //   description: "Medical images analysis for breast scans",
-  //   url: "/home222/",
-  // },
-  // {
-  //   imageSrc: "/static/images/brain.png",
-  //   title: "Brain Image Segmentation",
-  //   description: "Medical images analysis for brain scans",
-  //   url: "/home222/",
-  // },
+];
+
+var ImageTranslationArray = [
+  {
+    imageSrc: "/static/images/chest.png",
+    title: "CT to MRI Translation",
+    description: "Synthesize MRI images from CT scans",
+    url: "/mritoct/",
+  },
+
+  {
+    imageSrc: "/static/images/chest.png",
+    title: "MRI to CT Translation",
+    description: "Synthesize CT images from MRI scans",
+    url: "/mritoct/",
+  },
 ];
 
 // Get the container where the dynamic cards will be added
@@ -31,7 +35,7 @@ var container = document.getElementById("dynamicCardsContainer");
 
 //Last Section
 // Loop through the array and create cards dynamically
-dataArray.forEach(function (item) {
+ImageTranslationArray.forEach(function (item) {
   // Create card elements
   var card = document.createElement("div");
   card.classList.add("card");

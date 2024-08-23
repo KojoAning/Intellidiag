@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from home.views import show_home
 from segmentation.views import newpage
 from breastcancer.views import breastcancer
+from mri_to_ct.views import mri_to_ct
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +31,6 @@ urlpatterns = [
     path('dashboards/', include('dashboards.urls')),
     path('page1/', show_home, name="analysis"),
     path('segmentation/', newpage, name="segmentation"),
-    path('breastcancer/', breastcancer, name="breastcancer")
+    path('breastcancer/', breastcancer, name="breastcancer"),
+    path('mritoct/', mri_to_ct, name="mri_to_ct")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

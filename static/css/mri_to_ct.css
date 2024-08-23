@@ -68,6 +68,18 @@ body {
   cursor: pointer;
 }
 
+.btn-rescan2 {
+  margin-bottom: 10px;
+  color: white;
+  background-color: #1366ff;
+  padding: 9px 17px 9px 17px;
+  border: none;
+  width: 149px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .btn-patient1 {
   color: white;
   background-color: #28d14d;
@@ -111,9 +123,14 @@ main {
   border-bottom-left-radius: 7px;
 }
 
-.predictedImage {
-  height: 480px;
-  width: 600px;
+.workarea {
+  display: flex;
+  flex-direction: column;
+}
+
+.OriginalImage {
+  height: 440px;
+  width: 320px;
   grid-column: 1 / 3;
   grid-row: 1 / 3;
   background-color: #01101a;
@@ -122,6 +139,36 @@ main {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  margin-right: 20px;
+  position: relative;
+}
+.TranslatedImage {
+  height: 440px;
+  width: 320px;
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+  background-color: #01101a;
+  border-radius: 9px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-right: 20px;
+  position: relative;
+}
+
+.ReconstructedImage {
+  height: 440px;
+  width: 320px;
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+  background-color: #01101a;
+  border-radius: 9px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-right: 20px;
   position: relative;
 }
 
@@ -139,12 +186,14 @@ main {
 }
 
 .predictedImage-text {
-  color: #22833a;
+  color: white;
+  background-color: #db4437;
   padding-left: 20px;
   padding-top: 20px;
   position: absolute;
   top: 0;
   left: 0;
+  font-size: 12px;
 
   padding: 5px 10px;
   border-radius: 5px;
@@ -521,9 +570,9 @@ main {
   flex-wrap: wrap;
   gap: 10px;
   /* background-color: #c4c4c4;
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative; */
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative; */
 }
 
 footer {
