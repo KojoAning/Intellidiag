@@ -17,16 +17,15 @@ var dataArray = [
 var ImageTranslationArray = [
   {
     imageSrc: "/static/images/chest.png",
-    title: "CT to MRI Translation",
-    description: "Synthesize MRI images from CT scans",
-    url: "/mritoct/",
-  },
-
-  {
-    imageSrc: "/static/images/chest.png",
     title: "MRI to CT Translation",
     description: "Synthesize CT images from MRI scans",
     url: "/mritoct/",
+  },
+  {
+    imageSrc: "/static/images/chest.png",
+    title: "CT to MRI Translation",
+    description: "Synthesize MRI images from CT scans",
+    url: "/cttomri/",
   },
 ];
 

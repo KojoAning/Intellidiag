@@ -99,16 +99,16 @@
         </div>
       </div>
       <div class="workarea">
-        <button id="btn-rescan" class="btn-rescan2">Convert to CT</button>
+        <button id="btn-rescan" class="btn-rescan2">Convert to MRI</button>
         <div class="test">
           <div class="OriginalImage">
-            <p class="predictedImage-text">Original MRI</p>
+            <p class="predictedImage-text">Original CT</p>
           </div>
           <div class="TranslatedImage">
-            <p class="predictedImage-text">Translated MRI</p>
+            <p class="predictedImage-text">Synthesized MRI</p>
           </div>
           <div class="ReconstructedImage">
-            <p class="predictedImage-text">Reconstructed MRI</p>
+            <p class="predictedImage-text">Reconstructed CT</p>
           </div>
         </div>
       </div>
@@ -225,29 +225,29 @@
                 const mri2ctImage = document.createElement("img");
                 mri2ctImage.src = `data:image/png;base64,${mri2ct}`;
 
+                const ct2mriImage = document.createElement("img");
+                ct2mriImage.src = `data:image/png;base64,${ct2mri}`;
+
                 // Append the img element to the predictedImage div
                 const textOverlay = document.createElement("p");
                 textOverlay.classList.add("predictedImage-text");
-                textOverlay.textContent = "Synthesized CT";
+                textOverlay.textContent = "Synthesized MRI";
 
                 const TranslatedImageDiv =
                   document.querySelector(".TranslatedImage");
                 TranslatedImageDiv.innerHTML = ""; // Clear any previous image
-                TranslatedImageDiv.appendChild(mri2ctImage);
+                TranslatedImageDiv.appendChild(ct2mriImage);
                 TranslatedImageDiv.appendChild(textOverlay);
-
-                const ct2mriImage = document.createElement("img");
-                ct2mriImage.src = `data:image/png;base64,${ct2mri}`;
 
                 const ReconstructedOverlay = document.createElement("p");
                 ReconstructedOverlay.classList.add("predictedImage-text");
-                ReconstructedOverlay.textContent = "Reconstructed MRI";
+                ReconstructedOverlay.textContent = "Reconstructed CT";
 
                 const ReconstructedImageDiv = document.querySelector(
                   ".ReconstructedImage"
                 );
                 ReconstructedImageDiv.innerHTML = ""; // Clear any previous image
-                ReconstructedImageDiv.appendChild(ct2mriImage);
+                ReconstructedImageDiv.appendChild(mri2ctImage);
                 ReconstructedImageDiv.appendChild(ReconstructedOverlay);
               } else {
                 console.error("upload failed", uploadResponse.statusText);

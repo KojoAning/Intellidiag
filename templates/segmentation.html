@@ -141,6 +141,37 @@
       </div>
     </footer>
     <script>
+      async function getResponse(confidence_score, detected_tumor) {
+        // const userInput = document.getElementById("userInput").value;
+        const llamaResponse = document.getElementById("medicalnote");
+        llamaResponse.innerHTML = ""; // Clear previous response
+
+        console.log(confidence_score, detected_tumor);
+        const userInput = `Give me a short medical note on a brain tumor detected as ${detected_tumor} with confidence of ${confidence_score} without the patient data and no title just the essay report `;
+        console.log(userInput);
+        const response = await fetch("http://localhost:8000/response", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content: userInput }),
+        });
+
+        console.log("reading chars");
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let result = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          result = decoder.decode(value, { stream: true });
+
+          llamaResponse.innerHTML += result + " ";
+        }
+      }
+
       let scannedImages = [];
       document
         .getElementById("upload-button")
@@ -236,19 +267,23 @@
                 const scantype = result.scan_type;
                 const medical_note = result.medical_note;
                 const confidencescores = result.confidence_scores;
+                const tumor = result.detected_case;
                 // const overlayData = result.color_code;
+                document.getElementById("medicalnote").textContent =
+                  "Generating medical note......";
                 scannedImages.push({
                   image: imgBase64,
                   confidence: overallconfidence,
                 });
-
+                getResponse(
+                  (confidencescore = overallconfidence),
+                  (detected_tumor = tumor)
+                );
                 updateHistory();
                 // Update text content
                 document.getElementById("acheading").textContent =
-                  overallconfidence;
+                  overallconfidence + "%";
                 document.getElementById("scantype").textContent = scantype;
-                document.getElementById("medicalnote").textContent =
-                  medical_note;
 
                 // Clear previous prediction scores
                 const predictionscore =
