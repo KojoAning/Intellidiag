@@ -1,0 +1,401 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/segmentation.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/ddc04c24fc.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Lung Analysis</title>
+    <style>
+      #image-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        border-radius: 4px;
+      }
+      .image-item {
+        width: 100px;
+        border-radius: 10px;
+        height: 100px;
+        object-fit: cover;
+      }
+      .uploaded-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      .predicted-img {
+        width: 100%;
+        height: auto;
+      }
+
+      .predictedImage {
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="title">
+        <div class="svgContainer">
+          <i class="svg fa-solid fa-icons"></i>
+        </div>
+        <h2>
+          Lung Analysis<br />
+          Detection & Classification
+        </h2>
+      </div>
+      <div class="header-btn">
+        <button class="btn-rescan">Rescan</button>
+      </div>
+    </header>
+    <main class="maincontainer">
+      <div class="history">
+        <div class="historytitle">
+          <h5>History</h5>
+          <h6 id="scanned-count">0 images scanned so far</h6>
+        </div>
+        <div class="historysub">
+          <div class="hsitorycontainer" id="history-list">
+            <!-- History items will be added here dynamically -->
+          </div>
+        </div>
+        <div class="patientdets">
+          <div class="nameandage">
+            <div class="patientname">
+              <h3>PATIENT NAME</h3>
+              <h5>MICHAEL ADJEI ASANTE</h5>
+            </div>
+            <div class="patientage">
+              <h3>AGE</h3>
+              <h5>23</h5>
+            </div>
+          </div>
+          <div class="patientid">ID: /984439992</div>
+          <div class="patientbuttons">
+            <button class="btn-patient1">Accept</button>
+            <button class="btn-patient2">Decline</button>
+          </div>
+        </div>
+      </div>
+      <div class="predictedImage">
+        <p class="predictedImage-text">Predicted Image</p>
+      </div>
+      <div class="accuracyContainer">
+        <div class="patienttypeandname">
+          <h4>Lung Analysis</h4>
+          <h6>MICHAEL ADJEI FREMPONG /00212334</h6>
+        </div>
+        <div class="aC-heading">
+          <h4>Confidence Score set by AI</h4>
+          <h2 id="acheading">0%</h2>
+          <button id="btn-rescan">Classify</button>
+        </div>
+        <div class="predictionscores" id="prediction_scores">
+          <div class="predictionscores_sub">
+            <h3>n/a</h3>
+            <h5>0%</h5>
+          </div>
+        </div>
+        <div class="scan-type">
+          <h4>Scan type</h4>
+          <h2 id="scantype">n/a</h2>
+        </div>
+        <div class="medical-note">
+          <h2>Medical Note</h2>
+          <p id="medicalnote">n/a</p>
+          <button>Download Report</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div id="image-container"></div>
+
+      <div class="image-container add-image-container-next">
+        <input
+          type="file"
+          id="file-input"
+          accept="image/*"
+          multiple
+          style="display: none"
+        />
+        <button id="upload-button">
+          <i class="fa-solid fa-plus plus-icon"></i>
+        </button>
+      </div>
+    </footer>
+    <script>
+      async function getResponse(confidence_score, detected_tumor) {
+        // const userInput = document.getElementById("userInput").value;
+        const llamaResponse = document.getElementById("medicalnote");
+        llamaResponse.innerHTML = ""; // Clear previous response
+
+        console.log(confidence_score, detected_tumor);
+
+        const userInput = `As a radiologist, generate a four sentence medical report for a ${detected_tumor} identified in a supplied Lung scan image. write the generated output as a paragrph without bullets.`;
+        console.log(userInput);
+        const response = await fetch("http://localhost:8000/response", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content: userInput }),
+        });
+
+        console.log("reading chars");
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let result = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          result = decoder.decode(value, { stream: true });
+
+          llamaResponse.innerHTML += result + " ";
+        }
+      }
+
+      let scannedImages = [];
+      document
+        .getElementById("upload-button")
+        .addEventListener("click", function () {
+          document.getElementById("file-input").click();
+        });
+      const imagesArray = [];
+      document
+        .getElementById("file-input")
+        .addEventListener("change", function (event) {
+          const imageContainer = document.getElementById("image-container");
+          imageContainer.innerHTML = "";
+
+          const files = event.target.files;
+
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const img = document.createElement("img");
+              img.src = e.target.result;
+              img.classList.add("image-item");
+
+              imageContainer.appendChild(img);
+
+              img.addEventListener("click", function () {
+                imagesArray.length = 0;
+                imagesArray.push(img.src);
+                const predictedImageContainer =
+                  document.querySelector(".predictedImage");
+                predictedImageContainer.innerHTML = "";
+                const clonedImg = img.cloneNode(true);
+                clonedImg.classList.add("predicted-img");
+                predictedImageContainer.appendChild(clonedImg);
+              });
+            };
+            reader.readAsDataURL(file);
+          }
+
+          // if (files.length > 0) {
+          //   const footerImages = document.getElementById("footer-images");
+
+          //   Array.from(files).forEach((file) => {
+          //     const reader = new FileReader();
+          //     reader.onload = function (e) {
+          //       const img = document.createElement("img");
+          //       img.src = e.target.result;
+          //       img.classList.add("uploaded-img");
+          //       footerImages.appendChild(img);
+
+          //       img.addEventListener("click", function () {
+          //         const predictedImageContainer = document.querySelector(".predictedImage");
+          //         predictedImageContainer.innerHTML = "";
+          //         const clonedImg = img.cloneNode(true);
+          //         clonedImg.classList.add("predicted-img");
+          //         predictedImageContainer.appendChild(clonedImg);
+          //       });
+          //     };
+          //     reader.readAsDataURL(file);
+          //   });
+
+          //   // Update the scanned count
+          //   document.getElementById("scanned-count").textContent = `${
+          //     files.length
+          //   } image${files.length > 1 ? "s" : ""} scanned so far`;
+          // }
+        });
+
+      document
+        .getElementById("btn-rescan")
+        .addEventListener("click", async function () {
+          const container = document.querySelector(".predictedImage");
+          const img = container.querySelector("img");
+          console.log(imagesArray.length);
+          constimg2 = imagesArray[0];
+          if (img) {
+            console.log("image found");
+            try {
+              const response = await fetch(img.src);
+              const blob = await response.blob();
+
+              const formData = new FormData();
+              formData.append("file", blob, "image.png");
+
+              const uploadResponse = await fetch(
+                "http://localhost:8000/predict2",
+                {
+                  method: "POST",
+                  body: formData,
+                }
+              );
+
+              if (uploadResponse.ok) {
+                const result = await uploadResponse.json();
+                const imgBase64 = result.combined_image;
+                const overallconfidence = result.overall_confidence;
+                const scantype = result.scan_type;
+                const medical_note = result.medical_note;
+                const confidencescores = result.confidence_scores;
+                const tumor = result.detected_case;
+                // const overlayData = result.color_code;
+                document.getElementById("medicalnote").textContent =
+                  "Generating medical note......";
+                scannedImages.push({
+                  image: imgBase64,
+                  confidence: overallconfidence,
+                });
+                getResponse(
+                  (confidencescore = overallconfidence),
+                  (detected_tumor = tumor)
+                );
+                updateHistory();
+                // Update text content
+                document.getElementById("acheading").textContent =
+                  overallconfidence + "%";
+                document.getElementById("scantype").textContent = scantype;
+
+                // Clear previous prediction scores
+                const predictionscore =
+                  document.getElementById("prediction_scores");
+                predictionscore.innerHTML = "";
+
+                // Convert object to array for iteration
+                const confidenceArray = Object.entries(confidencescores[0]);
+
+                // Iterate over the array and create HTML elements
+                confidenceArray.forEach(([label, score]) => {
+                  // Create a new div element
+                  const div = document.createElement("div");
+                  div.className = "predictionscores_sub";
+
+                  // Create and append heading and score
+                  const heading = document.createElement("h3");
+                  heading.textContent = label;
+                  div.appendChild(heading);
+
+                  const scoreElement = document.createElement("h5");
+                  scoreElement.textContent = score + "%";
+                  div.appendChild(scoreElement);
+
+                  // Append the new div to the container
+                  predictionscore.appendChild(div);
+                });
+                // Create an img element and set its source to the Base64 string
+                const imgElement = document.createElement("img");
+                imgElement.src = `data:image/png;base64,${imgBase64}`;
+
+                // Append the img element to the predictedImage div
+                const predictedImageDiv =
+                  document.querySelector(".predictedImage");
+                predictedImageDiv.innerHTML = ""; // Clear any previous image
+                predictedImageDiv.appendChild(imgElement);
+
+                const overlayContainermain = document.createElement("div");
+                const overlayContainer = document.createElement("div");
+                overlayContainer.className = "overlay-container";
+
+                // Append overlay data
+                // overlayData.forEach((item, index) => {
+                //   const overlayDiv = document.createElement("div");
+                //   overlayDiv.className = "overlay-div";
+
+                //   // Create rectangle and text
+                //   const rectangle = document.createElement("div");
+                //   rectangle.className = `overlay-rectangle${index + 1}`; // Unique class based on index
+
+                //   const textElement = document.createElement("div");
+                //   textElement.className = "overlay-text";
+                //   textElement.textContent = item.text;
+
+                //   // Append rectangle and text to overlay div
+                //   overlayDiv.appendChild(rectangle);
+                //   overlayDiv.appendChild(textElement);
+
+                //   // Append overlay div to container
+                //   overlayContainer.appendChild(overlayDiv);
+                // });
+
+                // predictedImageDiv.appendChild(overlayContainer);
+              } else {
+                console.error("upload failed", uploadResponse.statusText);
+              }
+            } catch (e) {
+              console.log(e);
+            }
+          } else {
+            console.log("image not found");
+          }
+        });
+
+      function updateHistory() {
+        const historyList = document.getElementById("history-list");
+        historyList.innerHTML = ""; // Clear existing items
+
+        scannedImages.forEach((item, index) => {
+          const historyContainer = document.createElement("div");
+          historyContainer.className = "historycontainer";
+
+          const historyImage = document.createElement("img");
+          historyImage.className = "historyimage";
+          historyImage.src = `data:image/png;base64,${item.image}`;
+          historyContainer.appendChild(historyImage);
+
+          const historyLabel = document.createElement("div");
+          historyLabel.className = "historylabel";
+
+          const historyTitle = document.createElement("h3");
+          historyTitle.textContent = "Classification";
+          historyLabel.appendChild(historyTitle);
+
+          const historyConfidence = document.createElement("h5");
+          historyConfidence.textContent = `${item.confidence} confident`;
+          historyLabel.appendChild(historyConfidence);
+
+          historyContainer.appendChild(historyLabel);
+          historyList.appendChild(historyContainer);
+        });
+
+        // Update the scanned count
+        document.getElementById("scanned-count").textContent = `${
+          scannedImages.length
+        } image${scannedImages.length > 1 ? "s" : ""} scanned so far`;
+      }
+    </script>
+  </body>
+</html>

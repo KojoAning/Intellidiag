@@ -8,9 +8,9 @@ var dataArray = [
 
   {
     imageSrc: "/static/images/chest.png",
-    title: "Lung Image Segmentation",
+    title: "Lung Image Analysis",
     description: "Medical images analysis for chest scans",
-    url: "/mritoct/",
+    url: "/lunganalysis/",
   },
 ];
 

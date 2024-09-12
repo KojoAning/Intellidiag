@@ -23,6 +23,7 @@ from segmentation.views import newpage
 from breastcancer.views import breastcancer
 from mri_to_ct.views import mri_to_ct
 from ct_to_mri.views import ct_to_mri
+from lunganalysis.views import lunganalysis
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,5 +35,6 @@ urlpatterns = [
     path('segmentation/', newpage, name="segmentation"),
     path('breastcancer/', breastcancer, name="breastcancer"),
     path('mritoct/', mri_to_ct, name="mri_to_ct"),
-    path('cttomri/',ct_to_mri,name="ct_to_mri")
+    path('cttomri/',ct_to_mri,name="ct_to_mri"),
+    path('lunganalysis/',lunganalysis,name='lunganalysis')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
