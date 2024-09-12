@@ -147,7 +147,8 @@
         llamaResponse.innerHTML = ""; // Clear previous response
 
         console.log(confidence_score, detected_tumor);
-        const userInput = `Give me a short medical note on a brain tumor detected as ${detected_tumor} with confidence of ${confidence_score} without the patient data and no title just the essay report `;
+
+        const userInput = `As a radiologist, generate a four sentence medical report for a ${detected_tumor} identified in a supplied brain scan image. write the generated output as a paragrph without bullets.`;
         console.log(userInput);
         const response = await fetch("http://localhost:8000/response", {
           method: "POST",
@@ -178,7 +179,7 @@
         .addEventListener("click", function () {
           document.getElementById("file-input").click();
         });
-
+      const imagesArray = [];
       document
         .getElementById("file-input")
         .addEventListener("change", function (event) {
@@ -194,9 +195,12 @@
               const img = document.createElement("img");
               img.src = e.target.result;
               img.classList.add("image-item");
+
               imageContainer.appendChild(img);
 
               img.addEventListener("click", function () {
+                imagesArray.length = 0;
+                imagesArray.push(img.src);
                 const predictedImageContainer =
                   document.querySelector(".predictedImage");
                 predictedImageContainer.innerHTML = "";
@@ -242,7 +246,8 @@
         .addEventListener("click", async function () {
           const container = document.querySelector(".predictedImage");
           const img = container.querySelector("img");
-
+          console.log(imagesArray.length);
+          constimg2 = imagesArray[0];
           if (img) {
             console.log("image found");
             try {

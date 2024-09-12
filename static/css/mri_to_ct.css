@@ -30,6 +30,7 @@ body {
   justify-content: center;
   margin-right: 0px;
   padding-top: 10px;
+  align-items: center;
   padding-bottom: 10px;
   background-color: black;
 }
@@ -187,6 +188,33 @@ main {
   object-position: center;
   width: 100%;
   height: 100%;
+}
+
+#zoom-target {
+  position: relative;
+  box-sizing: border-box;
+  width: 400px;
+  height: 300px;
+}
+#zoom-mag {
+  position: absolute;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  border: 1px solid red;
+  top: 30px;
+}
+#zoom-viewer {
+  position: relative;
+  box-sizing: border-box;
+  width: 600px;
+  height: 500px;
+  border: 1px solid red;
+  overflow: hidden;
+  display: none;
+}
+#zoom-image {
+  position: absolute;
 }
 
 .TranslatedImage img {
@@ -428,6 +456,7 @@ main {
   margin-right: 20px;
   font-family: Poppins;
   background-color: black;
+  /* display: none; */
 }
 .predictionscores_sub h3 {
   font-size: 14px;
@@ -601,9 +630,9 @@ main {
   flex-wrap: wrap;
   gap: 10px;
   /* background-color: #c4c4c4;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative; */
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative; */
 }
 
 footer {
@@ -632,6 +661,40 @@ footer {
   height: 100%;
   object-fit: cover;
   cursor: pointer;
+}
+
+#flushbar {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  font-size: 17px;
+}
+
+/* Show the flushbar */
+#flushbar.show {
+  visibility: visible;
+  animation: fadeInOut 4s ease forwards;
+}
+
+/* Animation */
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
 }
 
 .add-image-container-next {

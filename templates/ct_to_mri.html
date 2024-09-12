@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <title>Brain Tumor Classification</title>
+    <title>Brainr Classification</title>
     <style>
       #image-container {
         display: flex;
@@ -51,6 +51,7 @@
     </style>
   </head>
   <body>
+    <div id="flushbar">This is a flushbar-like notification!</div>
     <header class="header">
       <div class="title">
         <img
@@ -62,7 +63,7 @@
 
         <h2>
           Image Translation<br />
-          MRI to CT
+          CT to MRI
         </h2>
       </div>
       <div class="header-btn">
@@ -104,13 +105,17 @@
           <div class="OriginalImage">
             <p class="predictedImage-text">Original CT</p>
           </div>
-          <div class="TranslatedImage">
+          <div class="TranslatedImage" id="TranslatedImage">
+            <!-- <div id="zoom-mag"></div> -->
             <p class="predictedImage-text">Synthesized MRI</p>
           </div>
           <div class="ReconstructedImage">
             <p class="predictedImage-text">Reconstructed CT</p>
           </div>
         </div>
+      </div>
+      <div id="zoom-viewer">
+        <img id="zoom-image" src="" width="3200" height="2400" />
       </div>
     </main>
     <footer>
@@ -131,6 +136,12 @@
     </footer>
     <script>
       let scannedImages = [];
+      const zoomTarget = document.getElementById("TranslatedImage");
+      //   const zoomMag = document.getElementById("zoom-mag");
+
+      const zoomViewer = document.getElementById("zoom-viewer");
+      const zoomImage = document.getElementById("zoom-image");
+
       document
         .getElementById("upload-button")
         .addEventListener("click", function () {
@@ -156,7 +167,7 @@
 
               const textOverlay = document.createElement("p");
               textOverlay.classList.add("predictedImage-text");
-              textOverlay.textContent = "Original MRI";
+              textOverlay.textContent = "Original CT";
 
               img.addEventListener("click", function () {
                 const predictedImageContainer =
@@ -213,15 +224,23 @@
                 const result = await uploadResponse.json();
                 const ct2mri = result.ct_to_mri;
                 const mri2ct = result.mri_to_ct;
+                const ssim = result.ssim;
 
                 // const overlayData = result.color_code;
                 scannedImages.push({
                   image: mri2ct,
+                  ssim: ssim,
                 });
 
                 updateHistory();
 
                 // Create an img element and set its source to the Base64 string
+
+                const zoomMag = document.createElement("div");
+                const TranslatedImageholder = document.createElement("div");
+                TranslatedImageholder.id = "transholder";
+
+                zoomMag.id = "zoom-mag";
                 const mri2ctImage = document.createElement("img");
                 mri2ctImage.src = `data:image/png;base64,${mri2ct}`;
 
@@ -233,11 +252,20 @@
                 textOverlay.classList.add("predictedImage-text");
                 textOverlay.textContent = "Synthesized MRI";
 
+                const zoomImage = document.getElementById("zoom-image");
+                const zoomViewer = document.getElementById("zoom-viewer");
+
+                // zoomViewer.style.display = "block";
+
                 const TranslatedImageDiv =
                   document.querySelector(".TranslatedImage");
                 TranslatedImageDiv.innerHTML = ""; // Clear any previous image
-                TranslatedImageDiv.appendChild(ct2mriImage);
+                TranslatedImageholder.appendChild(ct2mriImage);
+                TranslatedImageDiv.appendChild(TranslatedImageholder);
                 TranslatedImageDiv.appendChild(textOverlay);
+                TranslatedImageDiv.appendChild(zoomMag);
+
+                zoomImage.src = `data:image/png;base64,${ct2mri}`;
 
                 const ReconstructedOverlay = document.createElement("p");
                 ReconstructedOverlay.classList.add("predictedImage-text");
@@ -249,6 +277,8 @@
                 ReconstructedImageDiv.innerHTML = ""; // Clear any previous image
                 ReconstructedImageDiv.appendChild(mri2ctImage);
                 ReconstructedImageDiv.appendChild(ReconstructedOverlay);
+
+                initializeZoomEffect();
               } else {
                 console.error("upload failed", uploadResponse.statusText);
               }
@@ -281,17 +311,104 @@
           historyLabel.appendChild(historyTitle);
 
           const historyConfidence = document.createElement("h5");
-          historyConfidence.textContent = `${item.confidence} confident`;
+          historyConfidence.textContent = `${item.ssim.toFixed(
+            3
+          )} Similarity Index`;
           historyLabel.appendChild(historyConfidence);
 
           historyContainer.appendChild(historyLabel);
           historyList.appendChild(historyContainer);
         });
 
-        // Update the scanned count
         document.getElementById("scanned-count").textContent = `${
           scannedImages.length
         } image${scannedImages.length > 1 ? "s" : ""} scanned so far`;
+      }
+
+      function initializeZoomEffect() {
+        const zoomMag = document.getElementById("zoom-mag");
+
+        const originalImage = document.querySelector(".OriginalImage");
+        const transholder = document.getElementById("transholder");
+        const reconstructedImage = document.querySelector(
+          ".ReconstructedImage"
+        );
+        let enabled = false;
+
+        function handlClick() {
+          if (enabled == true) {
+            zoomViewer.style.display = "block";
+            originalImage.style.display = "none";
+            reconstructedImage.style.display = "none";
+            TranslatedImage.style.height = "350px";
+            TranslatedImage.style.width = "350px";
+            enabled = false;
+            // alert("set to true");
+          } else {
+            zoomViewer.style.display = "none"; // Hide the zoom viewer on mouse leave
+            originalImage.style.display = "block";
+            reconstructedImage.style.display = "block";
+            TranslatedImage.style.height = "440px";
+            TranslatedImage.style.width = "320px";
+          }
+          //   alert("I got clicked!");
+        }
+
+        zoomMag.addEventListener("click", (e) => {
+          e.stopPropagation();
+          enabled = true;
+          handlClick();
+        });
+
+        document.addEventListener("click", handlClick);
+        zoomTarget.addEventListener("mousemove", showFlushbar());
+
+        zoomTarget.addEventListener("mousemove", (e) => {
+          e.preventDefault();
+
+          // Calculate the x and y position in the target
+          let rect = e.currentTarget.getBoundingClientRect();
+
+          let x = e.clientX - rect.x;
+          let y = e.clientY - rect.y;
+
+          x -= zoomMag.offsetWidth / 2;
+          y -= zoomMag.offsetHeight / 2;
+
+          // Ensure the mag does not leave the target
+          if (x < 0) x = 0;
+          if (x > zoomTarget.offsetWidth - zoomMag.offsetWidth)
+            x = zoomTarget.offsetWidth - zoomMag.offsetWidth;
+
+          if (y < 0) y = 0;
+          if (y > zoomTarget.offsetHeight - zoomMag.offsetHeight)
+            y = zoomTarget.offsetHeight - zoomMag.offsetHeight;
+
+          // Reposition the mag
+          zoomMag.style.left = x + "px";
+          zoomMag.style.top = y + "px";
+
+          // Calculate the new position og the zoomed in image
+          let xPercent = x / (zoomTarget.offsetWidth - zoomMag.offsetWidth);
+          let yPercent = y / (zoomTarget.offsetHeight - zoomMag.offsetHeight);
+
+          let imageX =
+            (zoomImage.offsetWidth - zoomViewer.offsetWidth) * xPercent;
+          let imageY =
+            (zoomImage.offsetHeight - zoomViewer.offsetHeight) * yPercent;
+
+          // Reposition the image
+          zoomImage.style.left = -imageX + "px";
+          zoomImage.style.top = -imageY + "px";
+        });
+      }
+
+      function showFlushbar() {
+        const flushbar = document.getElementById("flushbar");
+        flushbar.className = "show";
+        setTimeout(() => {
+          flushbar.className = flushbar.className.replace("show", "");
+        }, 4000); // Hide after 4 seconds
       }
     </script>
   </body>
