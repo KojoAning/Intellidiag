@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["intellidiag.onrender.com"]
 
+CSRF_TRUSTED_ORIGINS = ['https://intellidiag.onrender.com']
 
 # Application definition
 
